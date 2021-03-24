@@ -8,11 +8,8 @@ void SortedMap::resize()
 {
 	int newCapacity = this->capacity * 2;
 	TElem* newElements = new TElem[newCapacity];
-	for (int index = 1; index <= this->capacity; index++) {
+	for (int index = 1; index < this->capacity; index++) {
 		newElements[index] = this->elements[index];
-	}
-	for (int index = 1; index <= newCapacity; index++) {
-		cout << newElements[index].first << endl;
 	}
 	delete[] this->elements;
 	this->elements = newElements;
@@ -20,11 +17,9 @@ void SortedMap::resize()
 	}
 
 
-
-
 SortedMap::SortedMap(Relation r) {
 	this->r = r;
-	this->capacity = 1;
+	this->capacity = 2;
 	this->length = 0;
 	this->elements = new TElem[this->capacity];
 }
@@ -71,7 +66,7 @@ TValue SortedMap::add(TKey k, TValue v){
 				copyValue = v;
 			}
 		}
-		if (this->length + 1 > this->capacity) { this->resize(); }
+		if (this->length + 1 == this->capacity) { this->resize(); }
 		this->length++;
 		this->elements[length].first = copyKey;
 		this->elements[length].second = copyValue;

@@ -37,5 +37,30 @@ void testAll(){
     }
     assert(sm.remove(1) == 3);
     assert(sm.isEmpty());
+
+
+    // TEST FOR NEW OPERATION
+    sm.add(1, 2);
+    sm.add(2, 3);
+    sm.add(5, 2);
+    sm.add(6, 2);
+    sm.add(3, 2);
+    sm.add(4, 2);
+    //   |1|    |2|     |3|     |4|     |5|     |6|
+    // [(1,2); (2,3);  (3,2);  (4,2);  (5,2);  (6,2)]
+    it.first();
+    it.next(); // second
+    it.next(); // third
+    it.next(); //fourth
+    it.next(); //fifth
+    it.jumpBackward(2);
+    assert(it.getCurrent().first == 3);
+    it.jumpBackward(10);
+    assert(it.valid()==false);
+    try {
+        it.jumpBackward(-1);
+        assert(false);
+    }
+    catch (exception&) { assert(true); }
 }
 

@@ -9,6 +9,7 @@ using namespace std;
 
 SMIterator::SMIterator(const SortedMap& m) : map(m){
 	this->currentPosition = 1;
+	this->validation = true;
 }
 
 void SMIterator::first(){
@@ -26,7 +27,7 @@ void SMIterator::next(){
 
 bool SMIterator::valid() const{
 	// Θ(1)
-	if (this->currentPosition <= this->map.size()) {
+	if (this->currentPosition <= this->map.size() && this->validation) {
 		return true;
 	}
 	else {
@@ -41,6 +42,13 @@ TElem SMIterator::getCurrent() const{
 	}
 	else { throw exception(); }
 	return NULL_TPAIR;
+}
+
+void SMIterator::jumpBackward(int k) {
+	// Θ(1)
+	if (k <= 0) { throw exception("Invalid k!");}
+	else if (this->currentPosition - k < 1) { this->validation = false; }
+	else { this->currentPosition -= k; }
 }
 
 
